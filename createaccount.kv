@@ -1,0 +1,111 @@
+<CreateAccountScreen>:
+    MDCard:
+        size_hint:None,None
+        size:320,430
+        pos_hint:{"center_x":0.5,"center_y":0.5}
+        md_bg_color: [255/255,225/255,28/255,1]
+        elevation: 15
+        padding:5
+        spacing:30
+
+
+        MDBoxLayout:
+            orientation:'vertical'
+            padding:5
+
+            MDCard:
+                md_bg_color: [255/255,1/255,1/255,1]
+                elevation:10
+                MDLabel:
+                    text:"Create Account"
+                    font_style:'Button'
+                    font_size:20
+                    halign:"center"
+                    size_hint_y:None
+                    height:self.texture_size[1]
+
+
+            MDLabel:
+                text:'Name'
+                pos_hint:{"center_x":0.5,"center_y":0.5}
+            MDTextFieldRound:
+                hint_text:"Enter Name"
+                helper_text_mode:'on_focus'
+                icon_left:'account'
+                font_size:20
+                color_active:[1,1,1,1]
+                width:100
+            MDLabel:
+
+                text:'Email'
+                pos_hint:{"center_x":0.5,"center_y":0.5}
+            MDTextFieldRound:
+                id:email
+                hint_text:"Enter Email"
+                helper_text_mode:'on_focus'
+                icon_left:'email'
+                font_size:20
+                color_active:[1,1,1,1]
+                width:100
+
+            MDLabel:
+                text:'Mobile No.'
+                pos_hint:{"center_x":0.5,"center_y":0.5}
+            MDTextFieldRound:
+                hint_text:"Enter Mobile No "
+                helper_text_mode:'on_focus'
+                icon_left:'phone'
+                font_size:20
+                color_active:[1,1,1,1]
+                width:100
+            MDLabel:
+                text:"Password"
+                pos_hint:{"center_x":0.5,"center_y":0.5}
+            MDTextFieldRound:
+                id:password
+                hint_text:"Enter password"
+                helper_text_mode:'on_focus'
+                icon_left:'lock'
+                font_size:20
+                color_active:[1,1,1,1]
+                password:True
+                width:100
+            MDLabel:
+                text:"Re-enter Password"
+                pos_hint:{"center_x":0.5,"center_y":0.5}
+            MDTextFieldRound:
+                hint_text:"re-enter password"
+                helper_text:"re-enter password"
+                helper_text_mode:'on_focus'
+                icon_left:'lock'
+                font_size:20
+                color_active:[1,1,1,1]
+                password:True
+                width:100
+            MDFlatButton:
+                padding:5
+                text:"REGISTER"
+                pos_hint: {"center_x": .5, "top": .225}
+                on_release:
+                    # Need to refer to the FirebaseLoginScreen
+                    root.parent.parent.sign_up(email.text, password.text)
+                    Animation(opacity=0, duration=0.5).start(message)
+                    root.parent.parent.display_loading_screen()
+
+
+            MDFlatButton:
+                text:"Cancel"
+                pos_hint:{"center_x":.5,'top':.225}
+                on_release:
+
+                    root.parent.transition = SlideTransition(direction="right")
+                    root.parent.current = "sign_in_screen"
+                    root.parent.transition = SlideTransition(direction="left")
+
+            MDLabel:
+                id: message
+                size_hint: .9 ,.1
+                pos_hint: {"center_x": .5, "center_y": .1}
+                opacity: 0
+                on_text:
+                    Animation(opacity=1, duration=0.5).start(self)

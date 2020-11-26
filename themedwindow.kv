@@ -1,0 +1,14 @@
+<ThemedButton@ButtonBehavior+Label>:
+    markup: True
+    opacity: 1 if self.state == 'normal' else .8
+
+    bg_color: (0,0,0,1)
+    #color: app.login_secondary_color
+
+    canvas.before:
+        Color:
+            rgba: self.bg_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: 10,

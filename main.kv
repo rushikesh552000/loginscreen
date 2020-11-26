@@ -1,0 +1,10 @@
+#:include firebaseloginscreen.kv
+#:import FirebaseLoginScreen firebaseloginscreen.FirebaseLoginScreen
+#:import utils kivy.utils
+ScreenManager:
+    FirebaseLoginScreen:
+        size_hint: 1,1
+        pos_hint: {"top": 1, "right": 1}
+        web_api_key: "AIzaSyBPOatMTvssKEjeh3mIoIvniSqk3eu_Tkg"
+        on_login_success:
+            print("Rushikesh shinde loged in successfully")

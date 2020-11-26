@@ -1,0 +1,11 @@
+<WelcomeScreen>:
+    MDBoxLayout:
+        MDLabel:
+            text:"Welcome"
+            pos_hint:{"center_x":0.5}
+        MDFlatButton:
+            text:"Back"
+            on_release:
+                root.parent.transition = SlideTransition(direction="right")
+                root.parent.current = "sign_in_screen"
+                root.parent.transition = SlideTransition(direction="left")

@@ -1,0 +1,96 @@
+<LogInScreen>:
+    MDCard:
+        size_hint: None,None
+        size: 320,430
+        pos_hint: {"center_x":.5,"center_y":.5}
+        elevation: 15
+        md_bg_color: [255/255,255/255,28/255,1]
+        padding:20
+        spacing:30
+        orientation:'vertical'
+        MDCard:
+            md_bg_color: [255/255,1/255,1/255,1]
+            elevation:10
+            MDLabel:
+                text:"LOGIN"
+                font_style:'Button'
+                font_size:50
+                halign:"center"
+                size_hint_y:None
+                height:self.texture_size[1]
+
+        MDTextFieldRound:
+            id:email
+            hint_text:"username"
+            icon_left:'account'
+            size_hint_x :None
+            width:200
+            font_size:20
+            pos_hint:{"center_x":.5}
+            color_active:[1,1,1,1]
+
+        MDTextFieldRound:
+            id:password
+            hint_text:"password"
+            icon_left:'lock'
+            size_hint_x:None
+            width:200
+            font_size:20
+            pos_hint:{"center_x":.5}
+            color_active:[1,1,1,1]
+            password:True
+
+        MDRoundFlatButton:
+            text:"SIGN-IN"
+            pos_hint:{"center_x":.5}
+            font_size:15
+            on_release:
+                root.parent.parent.sign_in(email.text, password.text)
+                Animation(opacity=0, duration=0.5).start(message)
+                root.parent.parent.display_loading_screen()
+
+
+        MDFlatButton:
+            text:"Forget password"
+            pos_hint:{"center_x":0.5}
+            on_release:
+                # Need to refer to the FirebaseLoginScreen
+                root.parent.parent.reset_password(email.text)
+                Animation(opacity=0, duration=0.5).start(message)
+                sign_in_button.opacity = 0
+                sign_in_button.disabled = True
+                root.parent.parent.display_loading_screen()
+
+        MDRectangleFlatButton:
+            id: create_account_button
+            text:"REGISTER"
+            pos_hint:{"center_x":0.5}
+            on_release:
+                root.parent.transition = SlideTransition(direction="left")
+                root.parent.current = "create_account_screen"
+                root.parent.transition = SlideTransition(direction="right")
+
+        MDLabel:
+            id: message
+            size_hint: .9 ,.1
+            pos_hint: {"center_x": .5, "center_y": .1}
+            opacity: 0
+            on_text:
+                Animation(opacity=1, duration=0.5).start(self)
+        MDFlatButton:
+            id: sign_in_button
+            text: "[u]Sign up[/u]"
+            size_hint: .2 ,.05
+            pos_hint: {"right": .85, "center_y": .1}
+            opacity: 0
+            disabled: True
+            on_release:
+                root.parent.current = "create_account_screen"
+                root.parent.parent.ids.create_account_screen.ids.email.text = email.text
+                root.parent.parent.ids.create_account_screen.ids.password.text = password.text
+
+
+
+
+
+
